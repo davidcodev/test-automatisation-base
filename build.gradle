@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        lombokVersion = '1.18.34'
+    }
+}
+
 plugins {
     id 'java'
 }
@@ -16,14 +22,27 @@ repositories {
 }
 
 dependencies {
-    
+    implementation 'org.springframework:spring-jdbc:6.1.10',
+            'org.mongodb:mongodb-driver-sync:5.1.2',
+            'org.antlr:ST4:4.3.4',
+            "org.projectlombok:lombok:${lombokVersion}"
+
+    //TO CONNECT WITH SQL DATABASE, THE NECESSARY DRIVER MUST BE ACTIVATED
+    //implementation 'org.postgresql:postgresql:42.6.0'
+    //implementation 'com.microsoft.sqlserver:mssql-jdbc:12.4.0.jre11'
+    //implementation 'com.mysql:mysql-connector-j:8.1.0'
+
     testImplementation 'com.intuit.karate:karate-junit5:1.4.1',
             "com.intuit.karate:karate-netty:0.9.2",
             "com.intuit.karate:karate-apache:0.9.6",
             "net.masterthought:cucumber-reporting:5.8.1",
             'junit:junit:4.13.2'
+
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 test {
     useJUnitPlatform()
+    include '**/*TestRunner.class'
 }

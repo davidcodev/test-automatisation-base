@@ -15,7 +15,7 @@ Feature: HU_001 Crear personaje (microservicio para crear nuevos personajes de M
       """
     * def headers = generarHeaders()
     * headers headers
-    * def temp =
+    * def getDate =
       """
       function() {
         var DateTimeFormatter = Java.type('java.time.format.DateTimeFormatter');
@@ -24,12 +24,16 @@ Feature: HU_001 Crear personaje (microservicio para crear nuevos personajes de M
         return ldt.format(dtf);
       }
       """
+    * def temp = getDate()
+    * print temp
 
   @id:1 @crearPersonaje @creacionExitosa201
   Scenario: T-API-HU_001-CA01-Crear personaje exitosamente 201 - karate
     * def jsonData = read('classpath:data/marvel_characters_api/request_create_character_valid.json')
-    *     jsonData.name=jsonData.name + temp
+    * def nombre = jsonData.name + temp
+    *     jsonData.name = nombre
     And request jsonData
+    And print jsonData
     When method POST
     Then status 201
 
