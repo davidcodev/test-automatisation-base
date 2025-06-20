@@ -21,3 +21,4 @@ karate-reports/
 # Otros
 *.iml
 .idea/
+.DS_Store
